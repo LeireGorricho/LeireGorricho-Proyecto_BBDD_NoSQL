@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clientes>
+    <cliente id="1">
+        <usuario>pepe</usuario>
+        <contrasena>12345</contrasena>
+        <nombre>Pepe</nombre>
+        <apellido>Garcia</apellido>
+        <telefono>612345789</telefono>
+        <email>pepegarcia@gmail.com</email>
+    </cliente>
+    <cliente id="2">
+        <usuario>elena</usuario>
+        <contrasena>12345</contrasena>
+        <nombre>Elena</nombre>
+        <apellido>Perez</apellido>
+        <telefono>612345789</telefono>
+        <email>elenaperez@gmail.com</email>
+    </cliente>
+    <cliente id="3">
+        <usuario>maria</usuario>
+        <contrasena>12345</contrasena>
+        <nombre>Maria</nombre>
+        <apellido>Garcia</apellido>
+        <telefono>612345789</telefono>
+        <email>mariagarcia@gmail.com</email>
+    </cliente>
+    <cliente id="4">
+        <usuario>manuel</usuario>
+        <contrasena>12345</contrasena>
+        <nombre>Manuel</nombre>
+        <apellido>Martinez</apellido>
+        <telefono>612345789</telefono>
+        <email>manuelmartinez@gmail.com</email>
+    </cliente>
+</clientes>
