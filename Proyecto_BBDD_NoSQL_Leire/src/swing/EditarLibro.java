@@ -112,6 +112,11 @@ public class EditarLibro extends javax.swing.JPanel {
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, -1, -1));
 
         botonEditar.setBackground(new java.awt.Color(161, 154, 224));
+        botonEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                botonEditarMousePressed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -217,7 +222,7 @@ public class EditarLibro extends javax.swing.JPanel {
         panelPagina.repaint();
     }//GEN-LAST:event_botonCancelarMousePressed
 
-    private void botonEditarMousePressed(java.awt.event.MouseEvent evt) {                                           
+    private void botonEditarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEditarMousePressed
         try {
             int numeropaginas = Integer.parseInt(numPaginas.getText());
             if (titulo.getText().isBlank() || autor.getText().isBlank() || genero.getText().isBlank() || editorial.getText().isBlank() || idioma.getText().isBlank() || numPaginas.getText().isBlank()){
@@ -237,7 +242,8 @@ public class EditarLibro extends javax.swing.JPanel {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Introduce valores correctos");
         }
-    }                                        
+    }//GEN-LAST:event_botonEditarMousePressed
+                                       
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField autor;

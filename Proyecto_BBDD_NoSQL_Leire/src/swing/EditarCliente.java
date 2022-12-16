@@ -218,7 +218,7 @@ public class EditarCliente extends javax.swing.JPanel {
         try {
             int tlf = Integer.parseInt(telefono.getText());
             if (usuario.getText().isBlank() || contrasena.getText().isBlank() || nombre.getText().isBlank() || apellido.getText().isBlank() || String.valueOf(telefono).length() != 9 || email.getText().isBlank()){
-                JOptionPane.showMessageDialog(null, "Compruebe que todos los datos están rellenados");
+                JOptionPane.showMessageDialog(null, "Compruebe que todos los datos están rellenados correctamente");
             } else {
                 Cliente updateCliente = new Cliente(id, usuario.getText(), contrasena.getText(), nombre.getText(), apellido.getText(), tlf, email.getText());
                 conexion.editarCliente(updateCliente);

@@ -148,7 +148,7 @@ public class Clientes extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("CLIENTES");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
 
         botonVer.setBackground(new java.awt.Color(91, 78, 202));
         botonVer.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -328,6 +328,7 @@ public class Clientes extends javax.swing.JPanel {
             //Obtencion del id del objeto seleccionaod en la tabla
             int id = Integer.parseInt(tabla_clientes.getValueAt(tabla_clientes.getSelectedRow(), 0).toString());
             conexion.eliminarCliente(id);
+            JOptionPane.showMessageDialog(null, "El cliente se ha eliminado correctamente");
         }
         modificarTabla();
     }//GEN-LAST:event_botonEliminarMousePressed

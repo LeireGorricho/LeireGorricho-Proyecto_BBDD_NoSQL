@@ -26,7 +26,7 @@ import table.TableHeader;
  * @author leiii
  */
 public class Prestamos extends javax.swing.JPanel {
-    String[] nombreColumnas = {"Id Libro", "Id Cliente", "Fecha"};
+    String[] nombreColumnas = {"Id Préstamo", "Id Libro", "Id Cliente", "Fecha"};
     JPanel panelPagina;
     List<Prestamo> prestamos = new ArrayList<Prestamo>();
     ConexionExist conexion = new ConexionExist();
@@ -79,11 +79,12 @@ public class Prestamos extends javax.swing.JPanel {
         cargarDatos();
         //Nombre de las columnas y cargamos los datos al array que se le van a enviar al la tabla para cargar los datos
         int cantidad = prestamos.size();
-        String[][] d = new String[cantidad][3];
+        String[][] d = new String[cantidad][4];
         for (int i = 0; i < prestamos.size(); i++) {
-            d[i][0] = String.valueOf(prestamos.get(i).getIdlibro());
-            d[i][1] = String.valueOf(prestamos.get(i).getIdcliente());
-            d[i][2] = String.valueOf(prestamos.get(i).getFecha());
+            d[i][0] = String.valueOf(prestamos.get(i).getId());
+            d[i][1] = String.valueOf(prestamos.get(i).getIdlibro());
+            d[i][2] = String.valueOf(prestamos.get(i).getIdcliente());
+            d[i][3] = String.valueOf(prestamos.get(i).getFecha());
         }
         //se carga el modelo de la tabla
         DefaultTableModel model = new DefaultTableModel(d, nombreColumnas){
@@ -143,7 +144,7 @@ public class Prestamos extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("PRÉSTAMOS");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, -1, -1));
 
         botonVer.setBackground(new java.awt.Color(91, 78, 202));
         botonVer.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -251,6 +252,7 @@ public class Prestamos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonVerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonVerMousePressed
+        cargarDatos();
         if (tabla_prestamos.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Para ver más información debes seleccionar un préstamo de la tabla");
         } else {
@@ -272,7 +274,7 @@ public class Prestamos extends javax.swing.JPanel {
                 panelPagina.revalidate();
                 panelPagina.repaint();
             } else {
-                JOptionPane.showMessageDialog(null, "Para ver más información debes seleccionar un préstamo de la tabla");
+                JOptionPane.showMessageDialog(null, "Para ver más información debes seleccionar un préstamo de la tabla.");
             }
         }
     }//GEN-LAST:event_botonVerMousePressed
@@ -295,6 +297,7 @@ public class Prestamos extends javax.swing.JPanel {
             //Obtencion del id del objeto seleccionaod en la tabla
             int id = Integer.parseInt(tabla_prestamos.getValueAt(tabla_prestamos.getSelectedRow(), 0).toString());
             conexion.eliminarPrestamo(id);
+            JOptionPane.showMessageDialog(null, "El préstamo se ha eliminado correctamente");
         }
         modificarTabla();
     }//GEN-LAST:event_botonEliminarMousePressed

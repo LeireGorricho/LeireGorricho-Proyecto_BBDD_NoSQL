@@ -326,6 +326,7 @@ public class Libros extends javax.swing.JPanel {
             //Obtencion del id del objeto seleccionaod en la tabla
             int id = Integer.parseInt(tabla_libros.getValueAt(tabla_libros.getSelectedRow(), 0).toString());
             conexion.eliminarLibro(id);
+            JOptionPane.showMessageDialog(null, "El libro se ha eliminado correctamente");
         }
         modificarTabla();
     }//GEN-LAST:event_botonEliminarMousePressed

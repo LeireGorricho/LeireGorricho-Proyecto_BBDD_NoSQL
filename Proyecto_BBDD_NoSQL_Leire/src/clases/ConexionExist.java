@@ -154,7 +154,7 @@ public class ConexionExist {
                 XPathQueryService servicio;
                 servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
                 //Preparamos la consulta
-                ResourceSet result = servicio.query("for $emp in /prestamos/prestamo return $emp");
+                ResourceSet result = servicio.query("for $pres in /prestamos/prestamo return $pres");
                 // recorrer los datos del recurso.
                 ResourceIterator i = result.getIterator();
                 if (!i.hasMoreResources()) {
@@ -304,7 +304,7 @@ public class ConexionExist {
             try {
                 XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
                 //Consulta para borrar un empleado --> update delete
-                servicio.query("update delete /prestamos/prestamos[@id='" + id + "']");
+                servicio.query("update delete /prestamos/prestamo[@id='" + id + "']");
                 col.close();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error al borrar");
