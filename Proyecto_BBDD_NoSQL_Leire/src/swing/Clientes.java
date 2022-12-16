@@ -327,7 +327,7 @@ public class Clientes extends javax.swing.JPanel {
         } else {
             //Obtencion del id del objeto seleccionaod en la tabla
             int id = Integer.parseInt(tabla_clientes.getValueAt(tabla_clientes.getSelectedRow(), 0).toString());
-            conexion.eliminarCliente(id);
+            conexion.eliminarCliente(id, emp);
             JOptionPane.showMessageDialog(null, "El cliente se ha eliminado correctamente");
         }
         modificarTabla();

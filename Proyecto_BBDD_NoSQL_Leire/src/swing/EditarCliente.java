@@ -221,7 +221,7 @@ public class EditarCliente extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Compruebe que todos los datos están rellenados correctamente");
             } else {
                 Cliente updateCliente = new Cliente(id, usuario.getText(), contrasena.getText(), nombre.getText(), apellido.getText(), tlf, email.getText());
-                conexion.editarCliente(updateCliente);
+                conexion.editarCliente(updateCliente, emp);
                 JOptionPane.showMessageDialog(null, "El cliente se ha editado correctamente");
                 Clientes frame = new Clientes(panelPagina, emp);
                 frame.setSize(700,550);

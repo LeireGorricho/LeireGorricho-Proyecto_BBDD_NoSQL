@@ -229,7 +229,7 @@ public class EditarLibro extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Compruebe que todos los datos están rellenados");
             } else {
                 Libro updateLibro = new Libro(id, titulo.getText(), autor.getText(), genero.getText(), editorial.getText(), idioma.getText(), numeropaginas);
-                conexion.editarLibro(updateLibro);
+                conexion.editarLibro(updateLibro, emp);
                 JOptionPane.showMessageDialog(null, "El libro se ha editado correctamente");
                 Libros frame = new Libros(panelPagina, emp);
                 frame.setSize(700,550);

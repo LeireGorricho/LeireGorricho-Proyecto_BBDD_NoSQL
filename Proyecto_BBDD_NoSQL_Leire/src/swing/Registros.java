@@ -14,6 +14,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class Registros extends javax.swing.JPanel {
         });
         jScrollPane1.getViewport().setBackground(Color.WHITE);
         jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
-        modificarTablaSesion();
+        modificarTablaLogins();
         modificarTablaConsultas();
 
         //tabla de logs
@@ -81,12 +82,11 @@ public class Registros extends javax.swing.JPanel {
 
     public void cargarDatosConsultas() {
         consultas.clear();
-        consultas = conexion.cargarControlConsultas();
+        cargarRegistroConsultas();
     }
 
-    public void modificarTablaSesion() {
+    public void modificarTablaLogins() {
         cargarDatosLogins();
-        //Nombre de las columnas y cargamos los datos al array que se le van a enviar al la tabla para cargar los datos
         int cantidad = logins.size();
         String[][] d = new String[cantidad][3];
         for (int i = 0; i < logins.size(); i++) {
@@ -94,7 +94,6 @@ public class Registros extends javax.swing.JPanel {
             d[i][1] = String.valueOf(logins.get(i).getUsuario());
             d[i][2] = String.valueOf(logins.get(i).getFecha());
         }
-        //se carga el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel(d, nombreColumnasLogins) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -102,14 +101,10 @@ public class Registros extends javax.swing.JPanel {
             }
         };;
         tabla_logins.setModel(modelo);
-        /*tableSesion.setAutoCreateRowSorter(true);
-        sorter = new TableRowSorter<>(modelo);
-        tableSesion.setRowSorter(sorter);*/
     }
 
     public void modificarTablaConsultas() {
         cargarDatosConsultas();
-        //Nombre de las columnas y cargamos los datos al array que se le van a enviar al la tabla para cargar los datos
         int cantidad = consultas.size();
         String[][] d = new String[cantidad][3];
         for (int i = 0; i < consultas.size(); i++) {
@@ -117,7 +112,6 @@ public class Registros extends javax.swing.JPanel {
             d[i][1] = String.valueOf(consultas.get(i).getFecha());
             d[i][2] = String.valueOf(consultas.get(i).getSentecia());
         }
-        //se carga el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel(d, nombreColumnasConsultas) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -125,9 +119,28 @@ public class Registros extends javax.swing.JPanel {
             }
         };;
         tabla_consultas.setModel(modelo);
-        /*tableSesion.setAutoCreateRowSorter(true);
-        sorter = new TableRowSorter<>(modelo);
-        tableSesion.setRowSorter(sorter);*/
+    }
+
+    public void cargarRegistroConsultas(){
+        try {
+            File fichero = new File("./src/ficheros/consultas.dat");
+            FileInputStream filein = new FileInputStream(fichero);
+            ObjectInputStream fileobj = new ObjectInputStream(filein);
+            Consulta consulta;
+            while ((consulta = (Consulta) fileobj.readObject()) != null) {
+                consultas.add(consulta);
+            }
+            filein.close();
+            fileobj.close();
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "No se ha encontrado el fichero donde se guardan las consultas");
+        } catch (EOFException e) {
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado");
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "No se ha podido encontrar la clase para crear la consulta");
+        }
     }
 
     /**

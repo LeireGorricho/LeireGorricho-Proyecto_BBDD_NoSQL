@@ -1,6 +1,8 @@
 package clases;
 
-public class Consulta {
+import java.io.Serializable;
+
+public class Consulta implements Serializable {
 
     String empleado;
     String fecha;

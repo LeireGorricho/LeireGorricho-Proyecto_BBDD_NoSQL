@@ -296,7 +296,7 @@ public class Prestamos extends javax.swing.JPanel {
         } else {
             //Obtencion del id del objeto seleccionaod en la tabla
             int id = Integer.parseInt(tabla_prestamos.getValueAt(tabla_prestamos.getSelectedRow(), 0).toString());
-            conexion.eliminarPrestamo(id);
+            conexion.eliminarPrestamo(id, emp);
             JOptionPane.showMessageDialog(null, "El préstamo se ha eliminado correctamente");
         }
         modificarTabla();

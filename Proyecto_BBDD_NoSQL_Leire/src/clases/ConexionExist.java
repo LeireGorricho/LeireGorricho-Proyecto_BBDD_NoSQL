@@ -9,8 +9,7 @@ import org.xmldb.api.base.*;
 import org.xmldb.api.modules.XPathQueryService;
 
 import javax.swing.*;
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -83,9 +82,7 @@ public class ConexionExist {
             try {
                 XPathQueryService servicio;
                 servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-                //Preparamos la consulta
                 ResourceSet result = servicio.query("for $lib in /libros/libro return $lib");
-                // recorrer los datos del recurso.
                 ResourceIterator i = result.getIterator();
                 if (!i.hasMoreResources()) {
                     JOptionPane.showMessageDialog(null, "No hay libros en la biblioteca");
@@ -118,9 +115,7 @@ public class ConexionExist {
             try {
                 XPathQueryService servicio;
                 servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-                //Preparamos la consulta
                 ResourceSet result = servicio.query("for $emp in /clientes/cliente return $emp");
-                // recorrer los datos del recurso.
                 ResourceIterator i = result.getIterator();
                 if (!i.hasMoreResources()) {
                     JOptionPane.showMessageDialog(null, "No hay clientes en la biblioteca");
@@ -153,9 +148,7 @@ public class ConexionExist {
             try {
                 XPathQueryService servicio;
                 servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-                //Preparamos la consulta
                 ResourceSet result = servicio.query("for $pres in /prestamos/prestamo return $pres");
-                // recorrer los datos del recurso.
                 ResourceIterator i = result.getIterator();
                 if (!i.hasMoreResources()) {
                     JOptionPane.showMessageDialog(null, "No hay préstamos en la biblioteca");
@@ -195,12 +188,10 @@ public class ConexionExist {
             try {
                 XPathQueryService servicio;
                 servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-                //Preparamos la consulta
                 String sentencia = "update insert " + textlibro + " into /libros";
                 ResourceSet result = servicio.query(sentencia);
                 System.out.println(result);
-                registroCambios(emp, sentencia);
-                //cerramos
+                controlConsultas(new Consulta(emp.getUsuario(), new Date().toString(), sentencia));
                 col.close();
             } catch (XMLDBException e) {
                 JOptionPane.showMessageDialog(null, "Error al consultar el documento");
@@ -224,12 +215,10 @@ public class ConexionExist {
             try {
                 XPathQueryService servicio;
                 servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-                //Preparamos la consulta
                 String sentencia = "update insert " + textcliente + " into /clientes";
                 ResourceSet result = servicio.query(sentencia);
                 System.out.println(result);
-                registroCambios(emp, sentencia);
-                //cerramos
+                controlConsultas(new Consulta(emp.getUsuario(), new Date().toString(), sentencia));
                 col.close();
             } catch (XMLDBException e) {
                 JOptionPane.showMessageDialog(null, "Error al consultar el documento");
@@ -251,12 +240,10 @@ public class ConexionExist {
             try {
                 XPathQueryService servicio;
                 servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-                //Preparamos la consulta
                 String sentencia = "update insert " + textprestamo + " into /prestamos";
                 ResourceSet result = servicio.query(sentencia);
                 System.out.println(result);
-                registroCambios(emp, sentencia);
-                //cerramos
+                controlConsultas(new Consulta(emp.getUsuario(), new Date().toString(), sentencia));
                 col.close();
             } catch (XMLDBException e) {
                 JOptionPane.showMessageDialog(null, "Error al consultar el documento");
@@ -266,13 +253,14 @@ public class ConexionExist {
         }
     }
 
-    public void eliminarLibro(int id) {
+    public void eliminarLibro(int id, Empleado emp) {
         Collection col = conectar();
         if (col != null) {
             try {
                 XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-                //Consulta para borrar un empleado --> update delete
-                servicio.query("update delete /libros/libro[@id='" + id + "']");
+                String sentencia = "update delete /libros/libro[@id='" + id + "']";
+                servicio.query(sentencia);
+                controlConsultas(new Consulta(emp.getUsuario(), new Date().toString(), sentencia));
                 col.close();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error al eliminar");
@@ -282,13 +270,14 @@ public class ConexionExist {
         }
     }
 
-    public void eliminarCliente(int id) {
+    public void eliminarCliente(int id, Empleado emp) {
         Collection col = conectar();
         if (col != null) {
             try {
                 XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-                //Consulta para borrar un empleado --> update delete
-                servicio.query("update delete /clientes/cliente[@id='" + id + "']");
+                String sentencia = "update delete /clientes/cliente[@id='" + id + "']";
+                servicio.query(sentencia);
+                controlConsultas(new Consulta(emp.getUsuario(), new Date().toString(), sentencia));
                 col.close();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error al eliminar");
@@ -298,13 +287,14 @@ public class ConexionExist {
         }
     }
 
-    public void eliminarPrestamo(int id) {
+    public void eliminarPrestamo(int id, Empleado emp) {
         Collection col = conectar();
         if (col != null) {
             try {
                 XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-                //Consulta para borrar un empleado --> update delete
-                servicio.query("update delete /prestamos/prestamo[@id='" + id + "']");
+                String sentencia = "update delete /prestamos/prestamo[@id='" + id + "']";
+                servicio.query(sentencia);
+                controlConsultas(new Consulta(emp.getUsuario(), new Date().toString(), sentencia));
                 col.close();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error al eliminar");
@@ -314,7 +304,7 @@ public class ConexionExist {
         }
     }
 
-    public void editarLibro(Libro libro) {
+    public void editarLibro(Libro libro, Empleado emp) {
         Collection col = conectar();
         String updatelibro = "<libro id='" + libro.getId() + "'>" +
                 "<titulo>" + libro.getTitulo() + "</titulo>" +
@@ -327,8 +317,9 @@ public class ConexionExist {
         if (col != null) {
             try {
                 XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-                //Consulta para borrar un producto --> update replace
-                servicio.query("update replace /libros/libro[@id=" + libro.getId() + "] with" + updatelibro);
+                String sentencia = "update replace /libros/libro[@id=" + libro.getId() + "] with" + updatelibro;
+                servicio.query(sentencia);
+                controlConsultas(new Consulta(emp.getUsuario(), new Date().toString(), sentencia));
                 col.close();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error al editar");
@@ -338,7 +329,7 @@ public class ConexionExist {
         }
     }
 
-    public void editarCliente(Cliente cliente) {
+    public void editarCliente(Cliente cliente, Empleado emp) {
         Collection col = conectar();
         String updatecliente = "<cliente id='" + cliente.getId() + "'>" +
                 "<usuario>" + cliente.getUsuario() + "</usuario>" +
@@ -351,8 +342,9 @@ public class ConexionExist {
         if (col != null) {
             try {
                 XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-                //Consulta para borrar un producto --> update replace
-                servicio.query("update replace /clientes/cliente[@id=" + cliente.getId() + "] with" + updatecliente);
+                String sentencia = "update replace /clientes/cliente[@id=" + cliente.getId() + "] with" + updatecliente;
+                servicio.query(sentencia);
+                controlConsultas(new Consulta(emp.getUsuario(), new Date().toString(), sentencia));
                 col.close();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Error al editar");
@@ -363,7 +355,6 @@ public class ConexionExist {
     }
 
 
-
     public void registroLoginEmpleados(Empleado emp) {
         Collection col = conectar();
         if (col != null) {
@@ -371,7 +362,6 @@ public class ConexionExist {
                 XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
                 //recuperar el id mas alto del registro para añadirle el siguiente
                 ResourceSet result = servicio.query("max(/logins/login/id) + 1");
-                // recorrer los datos del recurso.
                 int id = 0;
                 ResourceIterator i = result.getIterator();
                 while (i.hasMoreResources()) {
@@ -384,8 +374,6 @@ public class ConexionExist {
                         "<usuario>" + emp.getUsuario() + "</usuario>" +
                         "<fecha>" + new Date() + "</fecha>" +
                         "</login>";
-
-                //insertar el registro de login
                 servicio.query("update insert " + registro + " into /logins");
                 col.close();
             } catch (Exception e) {
@@ -433,72 +421,38 @@ public class ConexionExist {
     }
 
 
-    public List<Consulta> cargarControlConsultas() {
-        Collection col = conectar();
+    public void controlConsultas(Consulta consulta) {
+        File fichero = new File("./src/ficheros/consultas.dat");
         List<Consulta> consultas = new ArrayList<>();
-        if (col != null) {
-            try {
-                XPathQueryService servicio;
-                servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-                //Preparamos la consulta
-                ResourceSet result = servicio.query("for consult in /consultas/consulta return $consult");
-                // recorrer los datos del recurso.
-                ResourceIterator i = result.getIterator();
-                if (!i.hasMoreResources()) {
-                    JOptionPane.showMessageDialog(null, "No hay registro de consultas");
-                }
-                while (i.hasMoreResources()) {
-                    Resource r = i.nextResource();
-                    String campo = (String) r.getContent();
-                    SAXBuilder saxBuilder = new SAXBuilder();
-                    Document document = saxBuilder.build(new StringReader(campo));
-                    Element root = document.getRootElement();
-                    Consulta consulta = new Consulta(root.getChildren("empleado").get(0).getValue(), root.getChildren("fecha").get(0).getText(), root.getChildren("sentencia").get(0).getText());
-                    consultas.add(consulta);
-                }
-                col.close();
-            } catch (XMLDBException e) {
-                JOptionPane.showMessageDialog(null, "Error al consultar el documento");
-            } catch (IOException | JDOMException e) {
-                JOptionPane.showMessageDialog(null, "Error, inténtalo de nuevo más tarde");
+        ObjectInputStream fileobjin = null;
+        try {
+            FileInputStream filei = new FileInputStream(fichero);
+            fileobjin = new ObjectInputStream(filei);
+            Consulta cons;
+            while ((cons = (Consulta) fileobjin.readObject()) != null) {
+                consultas.add(cons);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Error en la conexión");
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "No se ha encontrado el fichero en el que se guardan las consultas");
+        } catch (EOFException e) {
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado");
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "No se han podido cargar los datos");
         }
-        return consultas;
-    }
-
-    public void registroCambios(Empleado emp, String sentencia) {
-        Collection col = conectar();
-        if (col != null) {
-            try {
-                XPathQueryService servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
-                //recuperar el id mas alto del registro para añadirle el siguiente
-                ResourceSet result = servicio.query("max(/consultas/consulta/id) + 1");
-                // recorrer los datos del recurso.
-                int id = 0;
-                ResourceIterator i = result.getIterator();
-                while (i.hasMoreResources()) {
-                    Resource r = i.nextResource();
-                    id = Integer.parseInt(r.getContent().toString());
-                }
-                String registro = "<consulta>" +
-                        "<id>" + id + "</id>" +
-                        "<idempleado>" + emp.getId() + "</idempleado>" +
-                        "<usuario>" + emp.getUsuario() + "</usuario>" +
-                        "<fecha>" + new Date() + "</fecha>" +
-                        "<sentencia>" + sentencia + "</sentencia>" +
-                        "</consulta>";
-
-                //insertar el registro de login
-                servicio.query("update insert " + registro + " into /consultas");
-                col.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al registrar los datos");
-                e.printStackTrace();
+        try {
+            FileOutputStream fileo = new FileOutputStream(fichero);
+            ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
+            System.out.println(consultas.size());
+            consultas.add(consulta);
+            for (Consulta value : consultas) {
+                fileobj.writeObject(value);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Error en la conexión");
+            fileobj.close();
+            fileobjin.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

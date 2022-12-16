@@ -6,7 +6,7 @@ package swing;
 
 import clases.ConexionExist;
 import clases.Empleado;
-import xmls.GenerarColeccion;
+import ficheros.GenerarColeccion;
 
 import javax.swing.*;
 

@@ -1,5 +1,6 @@
-package xmls;
+package ficheros;
 
+import clases.Consulta;
 import org.w3c.dom.*;
 import org.xmldb.api.DatabaseManager;
 import org.xmldb.api.base.Collection;
@@ -15,7 +16,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
@@ -212,7 +213,7 @@ public class GenerarColeccion {
             crearElemento("numpaginas", "160", libro13, document);
 
             Source source = new DOMSource(document);
-            Result result = new StreamResult(new File("./src/xmls/libros.xml"));
+            Result result = new StreamResult(new File("./src/ficheros/libros.xml"));
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.transform(source, result);
             Result console = new StreamResult(System.out);
@@ -277,7 +278,7 @@ public class GenerarColeccion {
             crearElemento("email", "manuelmartinez@gmail.com", cliente4, document);
 
             Source source = new DOMSource(document);
-            Result result = new StreamResult(new java.io.File("./src/xmls/clientes.xml"));
+            Result result = new StreamResult(new java.io.File("./src/ficheros/clientes.xml"));
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.transform(source, result);
             Result console = new StreamResult(System.out);
@@ -320,7 +321,7 @@ public class GenerarColeccion {
             crearElemento("contrasena", "12345", empleado3, document);
 
             Source source = new DOMSource(document);
-            Result result = new StreamResult(new java.io.File("./src/xmls/empleados.xml"));
+            Result result = new StreamResult(new java.io.File("./src/ficheros/empleados.xml"));
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.transform(source, result);
             Result console = new StreamResult(System.out);
@@ -377,7 +378,7 @@ public class GenerarColeccion {
             crearElemento("diasprestamo", "30", prestamo4, document);
 
             Source source = new DOMSource(document);
-            Result result = new StreamResult(new java.io.File("./src/xmls/prestamos.xml"));
+            Result result = new StreamResult(new java.io.File("./src/ficheros/prestamos.xml"));
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.transform(source, result);
             Result console = new StreamResult(System.out);
@@ -408,7 +409,7 @@ public class GenerarColeccion {
             crearElemento("fecha", new Date().toString(), login, document);
 
             Source source = new DOMSource(document);
-            Result result = new StreamResult(new java.io.File("./src/xmls/logins.xml"));
+            Result result = new StreamResult(new java.io.File("./src/ficheros/logins.xml"));
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             transformer.transform(source, result);
             Result console = new StreamResult(System.out);
@@ -424,33 +425,14 @@ public class GenerarColeccion {
 
     public static void crearRegistroConsultasEmpleados() {
         try {
-            //creamos el documento con DOM
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            DOMImplementation implementation = builder.getDOMImplementation();
-            Document document = implementation.createDocument(null, "consultas", null);
-            document.setXmlVersion("1.0");
-
-            //Creamos cada elemento
-            Element registro = document.createElement("consulta");
-            document.getDocumentElement().appendChild(registro);
-            crearElemento("id", "1", registro, document);
-            crearElemento("idempleado", "1", registro, document);
-            crearElemento("usuario", "admin", registro, document);
-            crearElemento("fecha", new Date().toString(), registro, document);
-            crearElemento("sentencia", " ", registro, document);
-
-            Source source = new DOMSource(document);
-            Result result = new StreamResult(new java.io.File("./src/xmls/consultas.xml"));
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            transformer.transform(source, result);
-            Result console = new StreamResult(System.out);
-            transformer.transform(source, console);
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        } catch (TransformerConfigurationException e) {
-            throw new RuntimeException(e);
-        } catch (TransformerException e) {
+            File fichero = new File("./src/ficheros/consultas.dat");
+            FileOutputStream fileo = new FileOutputStream(fichero);
+            ObjectOutputStream fileobj = new ObjectOutputStream(fileo);
+            fileobj.writeObject(new Consulta("admin", new Date().toString(), "Consulta de prueba"));
+            fileobj.close();
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "No se ha encontrado el archivo");
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -462,12 +444,11 @@ public class GenerarColeccion {
             DatabaseManager.registerDatabase(database);
             Collection col = DatabaseManager.getCollection(URI, usu, usuPwd);
             if (col != null) {
-                col.storeResource(crearResource("libros.xml", "./src/xmls/libros.xml", col));
-                col.storeResource(crearResource("clientes.xml", "./src/xmls/clientes.xml", col));
-                col.storeResource(crearResource("prestamos.xml", "./src/xmls/prestamos.xml", col));
-                col.storeResource(crearResource("empleados.xml", "./src/xmls/empleados.xml", col));
-                col.storeResource(crearResource("consultas.xml", "./src/xmls/consultas.xml", col));
-                col.storeResource(crearResource("logins.xml", "./src/xmls/logins.xml", col));
+                col.storeResource(crearResource("libros.xml", "./src/ficheros/libros.xml", col));
+                col.storeResource(crearResource("clientes.xml", "./src/ficheros/clientes.xml", col));
+                col.storeResource(crearResource("prestamos.xml", "./src/ficheros/prestamos.xml", col));
+                col.storeResource(crearResource("empleados.xml", "./src/ficheros/empleados.xml", col));
+                col.storeResource(crearResource("logins.xml", "./src/ficheros/logins.xml", col));
                 col.close();
             } else {
                 JOptionPane.showMessageDialog(null, "Error al conectarse con la base de datos");
