@@ -25,11 +25,17 @@ public class VerCliente extends javax.swing.JPanel {
     /**
      * Creates new form VerCliente
      */
-    public VerCliente(JPanel panelPagina, Empleado emp) {
+    public VerCliente(JPanel panelPagina, Empleado emp, Cliente cliente) {
         initComponents();
         
         this.panelPagina = panelPagina;
         this.emp = emp;
+
+        nombreApellido.setText(cliente.getNombre() + " " + cliente.getApellido());
+        usuario.setText(cliente.getUsuario());
+        contrasena.setText(cliente.getContrasena());
+        telefono.setText(String.valueOf(cliente.getTelefono()));
+        email.setText(cliente.getEmail());
     }
 
     /**
@@ -60,7 +66,7 @@ public class VerCliente extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        nombreApellido.setFont(new java.awt.Font("Helvetica Neue", 1, 22)); // NOI18N
+        nombreApellido.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         nombreApellido.setForeground(new java.awt.Color(91, 78, 202));
         nombreApellido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         add(nombreApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 700, 40));
@@ -75,12 +81,16 @@ public class VerCliente extends javax.swing.JPanel {
         jLabel3.setText("Contraseña:");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, -1, -1));
 
+        usuario.setEditable(false);
+        usuario.setBackground(new java.awt.Color(255, 255, 255));
         usuario.setForeground(new java.awt.Color(102, 102, 102));
         usuario.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         usuario.setBorder(null);
         add(usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 260, -1));
         add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 260, 20));
 
+        contrasena.setEditable(false);
+        contrasena.setBackground(new java.awt.Color(255, 255, 255));
         contrasena.setForeground(new java.awt.Color(102, 102, 102));
         contrasena.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         contrasena.setBorder(null);
@@ -92,6 +102,8 @@ public class VerCliente extends javax.swing.JPanel {
         jLabel7.setText("Teléfono:");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, -1, -1));
 
+        telefono.setEditable(false);
+        telefono.setBackground(new java.awt.Color(255, 255, 255));
         telefono.setForeground(new java.awt.Color(102, 102, 102));
         telefono.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         telefono.setBorder(null);
@@ -103,6 +115,8 @@ public class VerCliente extends javax.swing.JPanel {
         jLabel8.setText("Email:");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, -1, -1));
 
+        email.setEditable(false);
+        email.setBackground(new java.awt.Color(255, 255, 255));
         email.setForeground(new java.awt.Color(102, 102, 102));
         email.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         email.setBorder(null);

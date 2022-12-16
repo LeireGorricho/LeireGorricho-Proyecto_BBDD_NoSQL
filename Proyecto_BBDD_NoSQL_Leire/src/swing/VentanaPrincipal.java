@@ -60,6 +60,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         botonCerrarSesion = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        botonConsultas = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        bordeConsultas = new javax.swing.JPanel();
         panelPagina = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -139,7 +142,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
         bordeLibrosLayout.setVerticalGroup(
             bordeLibrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout botonLibrosLayout = new javax.swing.GroupLayout(botonLibros);
@@ -158,7 +161,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(botonLibrosLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel2)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.add(botonLibros, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 200, -1));
@@ -288,6 +291,52 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ReaderPanda_pequeno.png"))); // NOI18N
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(75, 20, -1, -1));
 
+        botonConsultas.setBackground(new java.awt.Color(91, 78, 202));
+        botonConsultas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                botonConsultasMousePressed(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Registros");
+
+        bordeConsultas.setBackground(new java.awt.Color(91, 78, 202));
+        bordeConsultas.setPreferredSize(new java.awt.Dimension(5, 50));
+
+        javax.swing.GroupLayout bordeConsultasLayout = new javax.swing.GroupLayout(bordeConsultas);
+        bordeConsultas.setLayout(bordeConsultasLayout);
+        bordeConsultasLayout.setHorizontalGroup(
+            bordeConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+        bordeConsultasLayout.setVerticalGroup(
+            bordeConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout botonConsultasLayout = new javax.swing.GroupLayout(botonConsultas);
+        botonConsultas.setLayout(botonConsultasLayout);
+        botonConsultasLayout.setHorizontalGroup(
+            botonConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonConsultasLayout.createSequentialGroup()
+                .addComponent(bordeConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addContainerGap(118, Short.MAX_VALUE))
+        );
+        botonConsultasLayout.setVerticalGroup(
+            botonConsultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonConsultasLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel7)
+                .addContainerGap(18, Short.MAX_VALUE))
+            .addComponent(bordeConsultas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(botonConsultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 200, -1));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 550));
 
         panelPagina.setBackground(new java.awt.Color(255, 255, 255));
@@ -325,6 +374,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         devolverColor(botonLibros, bordeLibros);
         devolverColor(botonPrestamos, bordePrestamos);
         devolverColor(botonClientes, bordeClientes);
+        devolverColor(botonConsultas, bordeConsultas);
 
         Home frame = new Home();
         frame.setSize(700,550);
@@ -340,6 +390,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         devolverColor(botonHome, bordeHome);
         devolverColor(botonPrestamos, bordePrestamos);
         devolverColor(botonClientes, bordeClientes);
+        devolverColor(botonConsultas, bordeConsultas);
         
         Libros frame = new Libros(panelPagina, emp);
         frame.setSize(700,550);
@@ -355,6 +406,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         devolverColor(botonHome, bordeHome);
         devolverColor(botonLibros, bordeLibros);
         devolverColor(botonClientes, bordeClientes);
+        devolverColor(botonConsultas, bordeConsultas);
         
         Prestamos frame = new Prestamos(panelPagina, emp);
         frame.setSize(700,550);
@@ -370,6 +422,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         devolverColor(botonHome, bordeHome);
         devolverColor(botonLibros, bordeLibros);
         devolverColor(botonPrestamos, bordePrestamos);
+        devolverColor(botonConsultas, bordeConsultas);
         
         Clientes frame = new Clientes(panelPagina, emp);
         frame.setSize(700,550);
@@ -382,13 +435,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void botonCerrarSesionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCerrarSesionMousePressed
         Login frame = new Login();
-        frame.setSize(700,450);
+        frame.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_botonCerrarSesionMousePressed
+
+    private void botonConsultasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonConsultasMousePressed
+        darColor(botonConsultas, bordeConsultas);
+        devolverColor(botonHome, bordeHome);
+        devolverColor(botonLibros, bordeLibros);
+        devolverColor(botonPrestamos, bordePrestamos);
+        devolverColor(botonClientes, bordeClientes);
+        
+        Registros frame = new Registros();
+        frame.setSize(700,550);
         frame.setLocation(0,0);
         panelPagina.removeAll();
         panelPagina.add(frame, BorderLayout.CENTER);
         panelPagina.revalidate();
         panelPagina.repaint();
-    }//GEN-LAST:event_botonCerrarSesionMousePressed
+    }//GEN-LAST:event_botonConsultasMousePressed
 
     /**
      * @param args the command line arguments
@@ -437,11 +502,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bordeClientes;
+    private javax.swing.JPanel bordeConsultas;
     private javax.swing.JPanel bordeHome;
     private javax.swing.JPanel bordeLibros;
     private javax.swing.JPanel bordePrestamos;
     private javax.swing.JPanel botonCerrarSesion;
     private javax.swing.JPanel botonClientes;
+    private javax.swing.JPanel botonConsultas;
     private javax.swing.JPanel botonHome;
     private javax.swing.JPanel botonLibros;
     private javax.swing.JPanel botonPrestamos;
@@ -451,6 +518,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel panelPagina;

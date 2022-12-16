@@ -18,9 +18,9 @@ import java.util.List;
 
 public class ConexionExist {
     static String driver = "org.exist.xmldb.DatabaseImpl"; //Driver para eXist
-    static String URI = "xmldb:exist://localhost:8080/exist/xmlrpc/db/ProyectoPrueba"; //URI colección
+    static String URI = "xmldb:exist://localhost:8080/exist/xmlrpc/db/ProyectoBBDDNoSQL"; //URI colección
     static String usu = "admin"; //Usuario
-    static String usuPwd = "admin"; //Clave
+    static String usuPwd = ""; //Clave
 
     public ConexionExist() {
     }
@@ -84,7 +84,7 @@ public class ConexionExist {
                 XPathQueryService servicio;
                 servicio = (XPathQueryService) col.getService("XPathQueryService", "1.0");
                 //Preparamos la consulta
-                ResourceSet result = servicio.query("for $emp in /libros/libro return $emp");
+                ResourceSet result = servicio.query("for $lib in /libros/libro return $lib");
                 // recorrer los datos del recurso.
                 ResourceIterator i = result.getIterator();
                 if (!i.hasMoreResources()) {
@@ -96,7 +96,7 @@ public class ConexionExist {
                     SAXBuilder saxBuilder = new SAXBuilder();
                     Document document = saxBuilder.build(new StringReader(campo));
                     Element root = document.getRootElement();
-                    Libro libro = new Libro(Integer.parseInt(root.getAttribute("id").getValue()), root.getChildren("nombre").get(0).getText(), root.getChildren("autor").get(0).getText(), root.getChildren("genero").get(0).getText(), root.getChildren("editorial").get(0).getText(), root.getChildren("idioma").get(0).getText(), Integer.parseInt(root.getChildren("numpaginas").get(0).getText()));
+                    Libro libro = new Libro(Integer.parseInt(root.getAttribute("id").getValue()), root.getChildren("titulo").get(0).getText(), root.getChildren("autor").get(0).getText(), root.getChildren("genero").get(0).getText(), root.getChildren("editorial").get(0).getText(), root.getChildren("idioma").get(0).getText(), Integer.parseInt(root.getChildren("numpaginas").get(0).getText()));
                     libros.add(libro);
                 }
                 col.close();
@@ -166,7 +166,7 @@ public class ConexionExist {
                     SAXBuilder saxBuilder = new SAXBuilder();
                     Document document = saxBuilder.build(new StringReader(campo));
                     Element root = document.getRootElement();
-                    Prestamo prestamo = new Prestamo(Integer.parseInt(root.getAttribute("id").getValue()), Integer.parseInt(root.getAttribute("idlibro").getValue()), Integer.parseInt(root.getAttribute("idcliente").getValue()), root.getChildren("fecha").get(0).getText(), Integer.parseInt(root.getChildren("diasprestamo").get(0).getText()));
+                    Prestamo prestamo = new Prestamo(Integer.parseInt(root.getAttribute("id").getValue()), Integer.parseInt(root.getChildren("idlibro").get(0).getText()), Integer.parseInt(root.getChildren("idcliente").get(0).getText()), root.getChildren("fecha").get(0).getText(), Integer.parseInt(root.getChildren("diasprestamo").get(0).getText()));
                     prestamos.add(prestamo);
                 }
                 col.close();
@@ -361,6 +361,8 @@ public class ConexionExist {
             JOptionPane.showMessageDialog(null, "Error en la conexión");
         }
     }
+
+
 
     public void registroLoginEmpleados(Empleado emp) {
         Collection col = conectar();

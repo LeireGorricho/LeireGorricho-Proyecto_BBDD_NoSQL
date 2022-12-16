@@ -7,6 +7,8 @@ package swing;
 import clases.*;
 
 import java.awt.BorderLayout;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.*;
 
@@ -20,7 +22,10 @@ public class NuevoPrestamo extends javax.swing.JPanel {
     List<Prestamo> prestamos;
     ConexionExist conexion = new ConexionExist();
     Empleado emp;
-    
+    List<Libro> libros = new ArrayList<Libro>();
+    List<Cliente> clientes = new ArrayList<Cliente>();
+
+
     /**
      * Creates new form NuevoPrestamo
      */
@@ -29,7 +34,23 @@ public class NuevoPrestamo extends javax.swing.JPanel {
         
         this.panelPagina = panelPagina;
         this.emp = emp;
+
+        libros = conexion.cargarLibros();
+        for (int i = 0; i < libros.size(); i++) {
+            libro.addItem(String.valueOf(libros.get(i).getId()));
+        }
+
+        clientes = conexion.cargarClientes();
+        for (int i = 0; i < clientes.size(); i++) {
+            cliente.addItem(String.valueOf(clientes.get(i).getId()));
+        }
+
+        fecha.setText(String.valueOf(new Date()));
+        diasPrestamo.addItem("7");
+        diasPrestamo.addItem("15");
+        diasPrestamo.addItem("30");
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -150,18 +171,39 @@ public class NuevoPrestamo extends javax.swing.JPanel {
 
         add(botonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 150, 30));
 
-        libro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         add(libro, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 260, -1));
 
-        cliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         add(cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, 260, -1));
 
-        diasPrestamo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         add(diasPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, 260, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAnadirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAnadirMousePressed
-
+        try {
+            if (Integer.parseInt(libro.getSelectedItem().toString()) == -1 || Integer.parseInt(cliente.getSelectedItem().toString()) == -1 || Integer.parseInt(diasPrestamo.getSelectedItem().toString()) == -1){
+                JOptionPane.showMessageDialog(null, "Comprueba que todos los datos están rellenados");
+            } else {
+                int id;
+                prestamos = conexion.cargarPrestamos();
+                if (prestamos.size() == 0) {
+                    id = 1;
+                } else {
+                    id = prestamos.get(prestamos.size() - 1).getId() + 1;
+                }
+                Prestamo nuevoprestamo = new Prestamo(id, Integer.parseInt(libro.getSelectedItem().toString()), Integer.parseInt(cliente.getSelectedItem().toString()), fecha.getText(), Integer.parseInt(diasPrestamo.getSelectedItem().toString()));
+                conexion.anadirPrestamo(nuevoprestamo, emp);
+                JOptionPane.showMessageDialog(null, "El préstamo se ha añadido correctamente");
+                Prestamos frame = new Prestamos(panelPagina, emp);
+                frame.setSize(700,550);
+                frame.setLocation(0,0);
+                panelPagina.removeAll();
+                panelPagina.add(frame, BorderLayout.CENTER);
+                panelPagina.revalidate();
+                panelPagina.repaint();
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Comprueba que has rellenado todos los datos y que estos son correctos");
+        }
     }//GEN-LAST:event_botonAnadirMousePressed
 
     private void botonCancelarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonCancelarMousePressed

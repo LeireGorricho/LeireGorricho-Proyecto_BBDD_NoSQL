@@ -29,18 +29,31 @@ public class Home extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("IMAGEN");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(289, 212, -1, -1));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ReaderPanda.png"))); // NOI18N
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, -1, -1));
 
-        jLabel2.setText("jLabel2");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 472, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Georgia", 3, 36)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(91, 78, 202));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("READER");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 170, -1));
 
-        jLabel3.setText("Teléfono");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 472, -1, -1));
+        jLabel3.setFont(new java.awt.Font("Georgia", 3, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(91, 78, 202));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("PANDA");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 380, 170, -1));
+
+        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 3, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("𝐻𝑜𝓎 𝑒𝓈 𝓊𝓃 𝒷𝓊𝑒𝓃 𝒹í𝒶 𝓅𝒶𝓇𝒶 𝓁𝑒𝑒𝓇 𝓊𝓃 𝒷𝓊𝑒𝓃 𝓁𝒾𝒷𝓇𝑜");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 450, 630, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -48,5 +61,6 @@ public class Home extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }

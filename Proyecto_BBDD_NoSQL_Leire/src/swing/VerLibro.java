@@ -25,11 +25,18 @@ public class VerLibro extends javax.swing.JPanel {
     /**
      * Creates new form VerLibro
      */
-    public VerLibro(JPanel panelPagina, Empleado emp) {
+    public VerLibro(JPanel panelPagina, Empleado emp, Libro libro) {
         initComponents();
         
         this.panelPagina = panelPagina;
         this.emp = emp;
+
+        titulo.setText(libro.getTitulo());
+        autor.setText(libro.getAutor());
+        genero.setText(libro.getGenero());
+        editorial.setText(libro.getEditorial());
+        idioma.setText(libro.getIdioma());
+        numPaginas.setText(String.valueOf(libro.getNumpaginas()));
     }
 
     /**
@@ -63,7 +70,7 @@ public class VerLibro extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        titulo.setFont(new java.awt.Font("Helvetica Neue", 1, 22)); // NOI18N
+        titulo.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         titulo.setForeground(new java.awt.Color(91, 78, 202));
         titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         add(titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 700, 40));
@@ -83,18 +90,24 @@ public class VerLibro extends javax.swing.JPanel {
         jLabel5.setText("Editorial:");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, -1, -1));
 
+        autor.setEditable(false);
+        autor.setBackground(new java.awt.Color(255, 255, 255));
         autor.setForeground(new java.awt.Color(102, 102, 102));
         autor.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         autor.setBorder(null);
         add(autor, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, 260, -1));
         add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 260, 10));
 
+        genero.setEditable(false);
+        genero.setBackground(new java.awt.Color(255, 255, 255));
         genero.setForeground(new java.awt.Color(102, 102, 102));
         genero.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         genero.setBorder(null);
         add(genero, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 260, -1));
         add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 260, 10));
 
+        editorial.setEditable(false);
+        editorial.setBackground(new java.awt.Color(255, 255, 255));
         editorial.setForeground(new java.awt.Color(102, 102, 102));
         editorial.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         editorial.setBorder(null);
@@ -106,6 +119,8 @@ public class VerLibro extends javax.swing.JPanel {
         jLabel7.setText("Idioma:");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 300, -1, -1));
 
+        idioma.setEditable(false);
+        idioma.setBackground(new java.awt.Color(255, 255, 255));
         idioma.setForeground(new java.awt.Color(102, 102, 102));
         idioma.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         idioma.setBorder(null);
@@ -117,6 +132,8 @@ public class VerLibro extends javax.swing.JPanel {
         jLabel8.setText("Número de páginas:");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, -1, -1));
 
+        numPaginas.setEditable(false);
+        numPaginas.setBackground(new java.awt.Color(255, 255, 255));
         numPaginas.setForeground(new java.awt.Color(102, 102, 102));
         numPaginas.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         numPaginas.setBorder(null);

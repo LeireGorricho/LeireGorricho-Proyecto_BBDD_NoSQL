@@ -26,7 +26,7 @@ public class GenerarColeccion {
     static String usu = "admin"; //Usuario
     static String usuPwd = ""; //Clave
 
-    public static void main(String[] args) {
+    public static void generararchivos(){
         crearLibros();
         crearClientes();
         crearPrestamos();
@@ -41,10 +41,10 @@ public class GenerarColeccion {
 
             Collection parent = DatabaseManager.getCollection(URI, usu, usuPwd);
             CollectionManagementService mgt = (CollectionManagementService) parent.getService("CollectionManagementService", "1.0");
-            Collection col = mgt.createCollection(URI + "/ProyectoBBNoSQL");
+            Collection col = mgt.createCollection(URI + "/ProyectoBBDDNoSQL");
             col.close();
             parent.close();
-            URI = URI + "/ProyectoBBNoSQL";
+            URI = URI + "/ProyectoBBDDNoSQL";
         } catch (XMLDBException e) {
             JOptionPane.showMessageDialog(null, "Error al instanciar la base de datos");
         } catch (ClassNotFoundException | InvocationTargetException | InstantiationException e) {
@@ -130,6 +130,86 @@ public class GenerarColeccion {
             crearElemento("editorial", "Ediciones Invisibles", libro5, document);
             crearElemento("idioma", "Castellano, Ingles", libro5, document);
             crearElemento("numpaginas", "440", libro5, document);
+
+            Element libro6 = document.createElement("libro");
+            document.getDocumentElement().appendChild(libro6);
+            crearAtributo("id", "6", libro6, document);
+            crearElemento("titulo", "Harry Potter y la piedra filosofal", libro6, document);
+            crearElemento("autor", "J.K Rowling", libro6, document);
+            crearElemento("genero", "Fantasía", libro6, document);
+            crearElemento("editorial", "Salamandra", libro6, document);
+            crearElemento("idioma", "Castellano, Inglés", libro6, document);
+            crearElemento("numpaginas", "250", libro6, document);
+
+            Element libro7 = document.createElement("libro");
+            document.getDocumentElement().appendChild(libro7);
+            crearAtributo("id", "7", libro7, document);
+            crearElemento("titulo", "Harry Potter y la cámara secreta", libro7, document);
+            crearElemento("autor", "J.K Rowling", libro7, document);
+            crearElemento("genero", "Fantasía", libro7, document);
+            crearElemento("editorial", "Salamandra", libro7, document);
+            crearElemento("idioma", "Castellano, Inglés", libro7, document);
+            crearElemento("numpaginas", "250", libro7, document);
+
+            Element libro8 = document.createElement("libro");
+            document.getDocumentElement().appendChild(libro8);
+            crearAtributo("id", "8", libro8, document);
+            crearElemento("titulo", "Harry Potter y el prisionero de Azkaban", libro8, document);
+            crearElemento("autor", "J.K Rowling", libro8, document);
+            crearElemento("genero", "Fantasía", libro8, document);
+            crearElemento("editorial", "Salamandra", libro8, document);
+            crearElemento("idioma", "Castellano, Inglés", libro8, document);
+            crearElemento("numpaginas", "250", libro8, document);
+
+            Element libro9 = document.createElement("libro");
+            document.getDocumentElement().appendChild(libro9);
+            crearAtributo("id", "9", libro9, document);
+            crearElemento("titulo", "Harry Potter y el cáliz de fuego", libro9, document);
+            crearElemento("autor", "J.K Rowling", libro9, document);
+            crearElemento("genero", "Fantasía", libro9, document);
+            crearElemento("editorial", "Salamandra", libro9, document);
+            crearElemento("idioma", "Castellano, Inglés", libro9, document);
+            crearElemento("numpaginas", "250", libro9, document);
+
+            Element libro10 = document.createElement("libro");
+            document.getDocumentElement().appendChild(libro10);
+            crearAtributo("id", "10", libro10, document);
+            crearElemento("titulo", "Harry Potter y la Orden del Fénix", libro10, document);
+            crearElemento("autor", "J.K Rowling", libro10, document);
+            crearElemento("genero", "Fantasía", libro10, document);
+            crearElemento("editorial", "Salamandra", libro10, document);
+            crearElemento("idioma", "Castellano, Inglés", libro10, document);
+            crearElemento("numpaginas", "250", libro10, document);
+
+            Element libro11 = document.createElement("libro");
+            document.getDocumentElement().appendChild(libro11);
+            crearAtributo("id", "11", libro11, document);
+            crearElemento("titulo", "Harry Potter y el misterio del príncipe", libro11, document);
+            crearElemento("autor", "J.K Rowling", libro11, document);
+            crearElemento("genero", "Fantasía", libro11, document);
+            crearElemento("editorial", "Salamandra", libro11, document);
+            crearElemento("idioma", "Castellano, Inglés", libro11, document);
+            crearElemento("numpaginas", "250", libro11, document);
+
+            Element libro12 = document.createElement("libro");
+            document.getDocumentElement().appendChild(libro12);
+            crearAtributo("id", "12", libro12, document);
+            crearElemento("titulo", "Harry Potter y las reliquias de la muerte", libro12, document);
+            crearElemento("autor", "J.K Rowling", libro12, document);
+            crearElemento("genero", "Fantasía", libro12, document);
+            crearElemento("editorial", "Salamandra", libro12, document);
+            crearElemento("idioma", "Castellano, Inglés", libro12, document);
+            crearElemento("numpaginas", "250", libro12, document);
+
+            Element libro13 = document.createElement("libro");
+            document.getDocumentElement().appendChild(libro13);
+            crearAtributo("id", "13", libro13, document);
+            crearElemento("titulo", "Animales fantásticos y donde encontrarlos", libro13, document);
+            crearElemento("autor", "J.K Rowling", libro13, document);
+            crearElemento("genero", "Fantasía", libro13, document);
+            crearElemento("editorial", "Salamandra", libro13, document);
+            crearElemento("idioma", "Castellano", libro13, document);
+            crearElemento("numpaginas", "160", libro13, document);
 
             Source source = new DOMSource(document);
             Result result = new StreamResult(new File("./src/xmls/libros.xml"));

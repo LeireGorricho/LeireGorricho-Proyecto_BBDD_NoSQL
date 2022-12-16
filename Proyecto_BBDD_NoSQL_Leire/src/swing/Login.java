@@ -6,6 +6,7 @@ package swing;
 
 import clases.ConexionExist;
 import clases.Empleado;
+import xmls.GenerarColeccion;
 
 import javax.swing.*;
 
@@ -83,7 +84,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("INICIAR SESIÓN");
+        jLabel1.setText("INICIO DE SESIÓN");
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
@@ -156,7 +157,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel3.add(botonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, -1, -1));
+        jPanel3.add(botonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, -1, -1));
 
         botonGenerarColeccion.setBackground(new java.awt.Color(91, 78, 202));
         botonGenerarColeccion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -187,7 +188,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.add(botonGenerarColeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 180, -1));
+        jPanel3.add(botonGenerarColeccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 180, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 450));
 
@@ -225,7 +226,8 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_botonSalirMousePressed
 
     private void botonGenerarColeccionMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGenerarColeccionMousePressed
-        // TODO add your handling code here:
+        GenerarColeccion.generararchivos();
+        JOptionPane.showMessageDialog(null, "Se han generado los archivos xml y la colección en Exist");
     }//GEN-LAST:event_botonGenerarColeccionMousePressed
 
     /**

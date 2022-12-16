@@ -222,7 +222,7 @@ public class NuevoLibro extends javax.swing.JPanel {
                 panelPagina.repaint();
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Introduce valores correctos");
+            JOptionPane.showMessageDialog(null, "Comprueba que has rellenado todos los datos y que estos son correctos");
         }
     }//GEN-LAST:event_botonAnadirMousePressed
 

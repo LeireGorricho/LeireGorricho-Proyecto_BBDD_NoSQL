@@ -38,7 +38,7 @@ public class Registros extends javax.swing.JPanel {
         //tabla de consultas
         tabla_consultas.setShowHorizontalLines(true);
         tabla_consultas.setGridColor(new Color(230,230,230));
-        tabla_consultas.setRowHeight(25);
+        tabla_consultas.setRowHeight(30);
         tabla_consultas.getTableHeader().setReorderingAllowed(true);
         tabla_consultas.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -58,7 +58,7 @@ public class Registros extends javax.swing.JPanel {
         //tabla de logs
         tabla_logins.setShowHorizontalLines(true);
         tabla_logins.setGridColor(new Color(230,230,230));
-        tabla_logins.setRowHeight(25);
+        tabla_logins.setRowHeight(30);
         tabla_logins.getTableHeader().setReorderingAllowed(true);
         tabla_logins.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -70,8 +70,8 @@ public class Registros extends javax.swing.JPanel {
                 return header;
             }
         });
-        jScrollPane1.getViewport().setBackground(Color.WHITE);
-        jScrollPane1.setVerticalScrollBar(new ScrollBarCustom());
+        jScrollPane2.getViewport().setBackground(Color.WHITE);
+        jScrollPane2.setVerticalScrollBar(new ScrollBarCustom());
     }
 
     public void cargarDatosLogins() {
@@ -170,6 +170,7 @@ public class Registros extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabla_consultas.setSelectionBackground(new java.awt.Color(161, 154, 224));
         jScrollPane1.setViewportView(tabla_consultas);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 640, 200));
@@ -185,6 +186,7 @@ public class Registros extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabla_logins.setSelectionBackground(new java.awt.Color(161, 154, 224));
         jScrollPane2.setViewportView(tabla_logins);
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 640, 200));

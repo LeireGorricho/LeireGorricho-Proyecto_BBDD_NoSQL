@@ -6,10 +6,13 @@ package swing;
 
 import clases.ConexionExist;
 import clases.Empleado;
+import clases.Libro;
 import clases.Prestamo;
 import java.awt.BorderLayout;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JPanel;
+import javax.xml.crypto.Data;
 
 /**
  *
@@ -25,11 +28,16 @@ public class VerPrestamo extends javax.swing.JPanel {
     /**
      * Creates new form VerPrestamo
      */
-    public VerPrestamo(JPanel panelPagina, Empleado emp) {
+    public VerPrestamo(JPanel panelPagina, Empleado emp, Prestamo prestamo) {
         initComponents();
         
         this.panelPagina = panelPagina;
         this.emp = emp;
+
+        libro.setText(String.valueOf(prestamo.getIdlibro()));
+        cliente.setText(String.valueOf(prestamo.getIdcliente()));
+        fecha.setText(String.valueOf(prestamo.getFecha()));
+        diasPrestamo.setText(String.valueOf(prestamo.getDiasprestamo()));
     }
 
     /**
@@ -71,12 +79,12 @@ public class VerPrestamo extends javax.swing.JPanel {
 
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel2.setText("Libro:");
+        jLabel2.setText("Id Libro:");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setText("Cliente:");
+        jLabel3.setText("Id Cliente:");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
@@ -127,16 +135,22 @@ public class VerPrestamo extends javax.swing.JPanel {
 
         add(botonVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 150, 30));
 
+        libro.setEditable(false);
+        libro.setBackground(new java.awt.Color(255, 255, 255));
         libro.setForeground(new java.awt.Color(102, 102, 102));
         libro.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         libro.setBorder(null);
         add(libro, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 260, -1));
 
+        cliente.setEditable(false);
+        cliente.setBackground(new java.awt.Color(255, 255, 255));
         cliente.setForeground(new java.awt.Color(102, 102, 102));
         cliente.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         cliente.setBorder(null);
         add(cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 260, -1));
 
+        diasPrestamo.setEditable(false);
+        diasPrestamo.setBackground(new java.awt.Color(255, 255, 255));
         diasPrestamo.setForeground(new java.awt.Color(102, 102, 102));
         diasPrestamo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         diasPrestamo.setBorder(null);

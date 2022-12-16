@@ -17,6 +17,9 @@ import javax.swing.table.DefaultTableModel;
 import clases.Cliente;
 import clases.ConexionExist;
 import clases.Empleado;
+import javax.swing.table.TableRowSorter;
+
+import clases.Libro;
 import scrollbar.ScrollBarCustom;
 import table.TableHeader;
 
@@ -30,6 +33,7 @@ public class Clientes extends javax.swing.JPanel {
     List<Cliente> clientes = new ArrayList<Cliente>();
     ConexionExist conexion = new ConexionExist();
     Empleado emp;
+    TableRowSorter<DefaultTableModel> sorter;
     
     /**
      * Creates new form Clientes
@@ -42,7 +46,7 @@ public class Clientes extends javax.swing.JPanel {
         
         tabla_clientes.setShowHorizontalLines(true);
         tabla_clientes.setGridColor(new Color(230,230,230));
-        tabla_clientes.setRowHeight(25);
+        tabla_clientes.setRowHeight(33);
         tabla_clientes.getTableHeader().setReorderingAllowed(true);
         tabla_clientes.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -85,7 +89,17 @@ public class Clientes extends javax.swing.JPanel {
             d[i][3] = String.valueOf(clientes.get(i).getTelefono());
         }
         //se carga el modelo de la tabla
-        tabla_clientes.setModel(new DefaultTableModel(d, nombreColumnas));
+        DefaultTableModel model = new DefaultTableModel(d, nombreColumnas){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+            
+        };
+        tabla_clientes.setModel(model);
+        tabla_clientes.setAutoCreateRowSorter(true);
+        sorter = new TableRowSorter<>(model);
+        tabla_clientes.setRowSorter(sorter);
     }
 
     /**
@@ -108,6 +122,9 @@ public class Clientes extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         botonModificar = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        textoBuscar = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -123,14 +140,15 @@ public class Clientes extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabla_clientes.setSelectionBackground(new java.awt.Color(161, 154, 224));
         jScrollPane1.setViewportView(tabla_clientes);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 69, 560, 450));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 119, 550, 400));
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("CLIENTES");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
 
         botonVer.setBackground(new java.awt.Color(91, 78, 202));
         botonVer.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -160,7 +178,7 @@ public class Clientes extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(botonVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 60, -1));
+        add(botonVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 60, -1));
 
         botonNuevo.setBackground(new java.awt.Color(91, 78, 202));
         botonNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -191,7 +209,7 @@ public class Clientes extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(botonNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 70, 60, -1));
+        add(botonNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 60, -1));
 
         botonEliminar.setBackground(new java.awt.Color(91, 78, 202));
         botonEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -222,7 +240,7 @@ public class Clientes extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(botonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 60, -1));
+        add(botonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 220, 60, -1));
 
         botonModificar.setBackground(new java.awt.Color(91, 78, 202));
         botonModificar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -250,21 +268,45 @@ public class Clientes extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(botonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 220, 60, -1));
+        add(botonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 270, 60, -1));
+
+        jLabel2.setText("Buscar:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+
+        textoBuscar.setBorder(null);
+        textoBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textoBuscarKeyReleased(evt);
+            }
+        });
+        add(textoBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 350, -1));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 350, 10));
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonVerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonVerMousePressed
         if (tabla_clientes.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Para ver más información debes seleccionar un cliente de la tabla");
         } else {
-            cargarDatos();
-            VerCliente frame = new VerCliente(panelPagina, emp);
-            frame.setSize(700,550);
-            frame.setLocation(0,0);
-            panelPagina.removeAll();
-            panelPagina.add(frame, BorderLayout.CENTER);
-            panelPagina.revalidate();
-            panelPagina.repaint();
+            int id = Integer.parseInt(tabla_clientes.getValueAt(tabla_clientes.getSelectedRow(), 0).toString());
+            Cliente cliente = null;
+            clientes.clear();
+            clientes = conexion.cargarClientes();
+            for (int i = 0; i < clientes.size(); i++) {
+                if(clientes.get(i).getId() == id){
+                    cliente = clientes.get(i);
+                }
+            }
+            if (cliente != null){
+                VerCliente frame = new VerCliente(panelPagina, emp, cliente);
+                frame.setSize(700,550);
+                frame.setLocation(0,0);
+                panelPagina.removeAll();
+                panelPagina.add(frame, BorderLayout.CENTER);
+                panelPagina.revalidate();
+                panelPagina.repaint();
+            } else {
+                JOptionPane.showMessageDialog(null, "Para ver más información debes seleccionar un cliente de la tabla");
+            }
         }
     }//GEN-LAST:event_botonVerMousePressed
 
@@ -307,6 +349,10 @@ public class Clientes extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_botonModificarMousePressed
 
+    private void textoBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoBuscarKeyReleased
+        sorter.setRowFilter(RowFilter.regexFilter("(?i)"+textoBuscar.getText()));
+    }//GEN-LAST:event_textoBuscarKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botonEliminar;
@@ -314,11 +360,14 @@ public class Clientes extends javax.swing.JPanel {
     private javax.swing.JPanel botonNuevo;
     private javax.swing.JPanel botonVer;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable tabla_clientes;
+    private javax.swing.JTextField textoBuscar;
     // End of variables declaration//GEN-END:variables
 }

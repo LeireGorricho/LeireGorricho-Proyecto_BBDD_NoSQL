@@ -6,6 +6,7 @@ package swing;
 
 import clases.ConexionExist;
 import clases.Empleado;
+import clases.Libro;
 import clases.Prestamo;
 
 import java.awt.*;
@@ -15,6 +16,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import scrollbar.ScrollBarCustom;
 import table.TableHeader;
@@ -24,11 +26,12 @@ import table.TableHeader;
  * @author leiii
  */
 public class Prestamos extends javax.swing.JPanel {
-    String[] nombreColumnas = {"Libro", "Cliente", "Fecha"};
+    String[] nombreColumnas = {"Id Libro", "Id Cliente", "Fecha"};
     JPanel panelPagina;
     List<Prestamo> prestamos = new ArrayList<Prestamo>();
     ConexionExist conexion = new ConexionExist();
     Empleado emp;
+    TableRowSorter<DefaultTableModel> sorter;
 
     /**
      * Creates new form Prestamos
@@ -41,7 +44,7 @@ public class Prestamos extends javax.swing.JPanel {
         
         tabla_prestamos.setShowHorizontalLines(true);
         tabla_prestamos.setGridColor(new Color(230,230,230));
-        tabla_prestamos.setRowHeight(25);
+        tabla_prestamos.setRowHeight(33);
         tabla_prestamos.getTableHeader().setReorderingAllowed(true);
         tabla_prestamos.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -83,7 +86,17 @@ public class Prestamos extends javax.swing.JPanel {
             d[i][2] = String.valueOf(prestamos.get(i).getFecha());
         }
         //se carga el modelo de la tabla
-        tabla_prestamos.setModel(new DefaultTableModel(d, nombreColumnas));
+        DefaultTableModel model = new DefaultTableModel(d, nombreColumnas){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+            
+        };
+        tabla_prestamos.setModel(model);
+        tabla_prestamos.setAutoCreateRowSorter(true);
+        sorter = new TableRowSorter<>(model);
+        tabla_prestamos.setRowSorter(sorter);
     }
 
     /**
@@ -104,6 +117,9 @@ public class Prestamos extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         botonEliminar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        textoBuscar = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -119,14 +135,15 @@ public class Prestamos extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tabla_prestamos.setSelectionBackground(new java.awt.Color(161, 154, 224));
         jScrollPane1.setViewportView(tabla_prestamos);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 69, 560, 470));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 119, 550, 420));
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("PRÉSTAMOS");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, -1, -1));
 
         botonVer.setBackground(new java.awt.Color(91, 78, 202));
         botonVer.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,7 +173,7 @@ public class Prestamos extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(botonVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 60, -1));
+        add(botonVer, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 60, -1));
 
         botonNuevo.setBackground(new java.awt.Color(91, 78, 202));
         botonNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -187,7 +204,7 @@ public class Prestamos extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(botonNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 70, 60, -1));
+        add(botonNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 120, 60, -1));
 
         botonEliminar.setBackground(new java.awt.Color(91, 78, 202));
         botonEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -218,21 +235,45 @@ public class Prestamos extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(botonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 60, -1));
+        add(botonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 220, 60, -1));
+
+        jLabel2.setText("Buscar:");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+
+        textoBuscar.setBorder(null);
+        textoBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textoBuscarKeyReleased(evt);
+            }
+        });
+        add(textoBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 350, -1));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 350, 10));
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonVerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonVerMousePressed
         if (tabla_prestamos.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Para ver más información debes seleccionar un préstamo de la tabla");
         } else {
-            cargarDatos();
-            VerPrestamo frame = new VerPrestamo(panelPagina, emp);
-            frame.setSize(700,550);
-            frame.setLocation(0,0);
-            panelPagina.removeAll();
-            panelPagina.add(frame, BorderLayout.CENTER);
-            panelPagina.revalidate();
-            panelPagina.repaint();
+            int id = Integer.parseInt(tabla_prestamos.getValueAt(tabla_prestamos.getSelectedRow(), 0).toString());
+            Prestamo prestamo = null;
+            prestamos.clear();
+            prestamos = conexion.cargarPrestamos();
+            for (int i = 0; i < prestamos.size(); i++) {
+                if(prestamos.get(i).getId() == id){
+                    prestamo = prestamos.get(i);
+                }
+            }
+            if (prestamo != null) {
+                VerPrestamo frame = new VerPrestamo(panelPagina, emp, prestamo);
+                frame.setSize(700, 550);
+                frame.setLocation(0, 0);
+                panelPagina.removeAll();
+                panelPagina.add(frame, BorderLayout.CENTER);
+                panelPagina.revalidate();
+                panelPagina.repaint();
+            } else {
+                JOptionPane.showMessageDialog(null, "Para ver más información debes seleccionar un préstamo de la tabla");
+            }
         }
     }//GEN-LAST:event_botonVerMousePressed
 
@@ -258,16 +299,23 @@ public class Prestamos extends javax.swing.JPanel {
         modificarTabla();
     }//GEN-LAST:event_botonEliminarMousePressed
 
+    private void textoBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textoBuscarKeyReleased
+        sorter.setRowFilter(RowFilter.regexFilter("(?i)"+textoBuscar.getText()));
+    }//GEN-LAST:event_textoBuscarKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel botonEliminar;
     private javax.swing.JPanel botonNuevo;
     private javax.swing.JPanel botonVer;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable tabla_prestamos;
+    private javax.swing.JTextField textoBuscar;
     // End of variables declaration//GEN-END:variables
 }
