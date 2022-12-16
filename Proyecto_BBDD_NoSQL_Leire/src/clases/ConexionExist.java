@@ -275,7 +275,7 @@ public class ConexionExist {
                 servicio.query("update delete /libros/libro[@id='" + id + "']");
                 col.close();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al borrar");
+                JOptionPane.showMessageDialog(null, "Error al eliminar");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Error en la conexión");
@@ -291,7 +291,7 @@ public class ConexionExist {
                 servicio.query("update delete /clientes/cliente[@id='" + id + "']");
                 col.close();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al borrar");
+                JOptionPane.showMessageDialog(null, "Error al eliminar");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Error en la conexión");
@@ -307,7 +307,7 @@ public class ConexionExist {
                 servicio.query("update delete /prestamos/prestamo[@id='" + id + "']");
                 col.close();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al borrar");
+                JOptionPane.showMessageDialog(null, "Error al eliminar");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Error en la conexión");
@@ -331,7 +331,7 @@ public class ConexionExist {
                 servicio.query("update replace /libros/libro[@id=" + libro.getId() + "] with" + updatelibro);
                 col.close();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al borrar");
+                JOptionPane.showMessageDialog(null, "Error al editar");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Error en la conexión");
@@ -342,7 +342,7 @@ public class ConexionExist {
         Collection col = conectar();
         String updatecliente = "<cliente id='" + cliente.getId() + "'>" +
                 "<usuario>" + cliente.getUsuario() + "</usuario>" +
-                "<contrasena>" + cliente.getContrasena() + "</contraseña>" +
+                "<contrasena>" + cliente.getContrasena() + "</contrasena>" +
                 "<nombre>" + cliente.getNombre() + "</nombre>" +
                 "<apellido>" + cliente.getApellido() + "</apellido>" +
                 "<telefono>" + cliente.getTelefono() + "</telefono>" +
@@ -355,7 +355,7 @@ public class ConexionExist {
                 servicio.query("update replace /clientes/cliente[@id=" + cliente.getId() + "] with" + updatecliente);
                 col.close();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al borrar");
+                JOptionPane.showMessageDialog(null, "Error al editar");
             }
         } else {
             JOptionPane.showMessageDialog(null, "Error en la conexión");

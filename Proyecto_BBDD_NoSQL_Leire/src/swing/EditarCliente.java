@@ -217,7 +217,7 @@ public class EditarCliente extends javax.swing.JPanel {
     private void botonEditarMousePressed(java.awt.event.MouseEvent evt) {                                         
         try {
             int tlf = Integer.parseInt(telefono.getText());
-            if (usuario.getText().isBlank() || contrasena.getText().isBlank() || nombre.getText().isBlank() || apellido.getText().isBlank() || String.valueOf(telefono).length() != 9 || email.getText().isBlank()){
+            if (usuario.getText().isBlank() || contrasena.getText().isBlank() || nombre.getText().isBlank() || apellido.getText().isBlank() || email.getText().isBlank() || String.valueOf(tlf).length() != 9){
                 JOptionPane.showMessageDialog(null, "Compruebe que todos los datos están rellenados correctamente");
             } else {
                 Cliente updateCliente = new Cliente(id, usuario.getText(), contrasena.getText(), nombre.getText(), apellido.getText(), tlf, email.getText());

@@ -200,7 +200,7 @@ public class NuevoCliente extends javax.swing.JPanel {
     private void botonAnadirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAnadirMousePressed
         try {
             int tlf = Integer.parseInt(telefono.getText());
-            if (usuario.getText().isBlank() || contrasena.getText().isBlank() || nombre.getText().isBlank() || apellido.getText().isBlank() || String.valueOf(telefono).length() != 9 || email.getText().isBlank()){
+            if (usuario.getText().isBlank() || contrasena.getText().isBlank() || nombre.getText().isBlank() || apellido.getText().isBlank() || String.valueOf(tlf).length() != 9 || email.getText().isBlank()){
                 JOptionPane.showMessageDialog(null, "Compruebe que todos los datos están rellenados y que el teléfono tiene 9 números");
             } else {
                 int id;
